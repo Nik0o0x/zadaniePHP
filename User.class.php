@@ -10,6 +10,11 @@ class User {
     public function __construct(string $login, string $password) {
         $this->login = $login;
         $this->password = $password;
+        $this->firstName = "";
+        $this->lastName = "";
+        global $db;
+        $this->db = &$db;
+    }
     
     public function register() : bool {
         $passwordHash = password_hash($this->password, PASSWORD_ARGON2I);
