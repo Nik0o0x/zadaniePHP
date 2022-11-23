@@ -10,3 +10,10 @@ if($user->register()) {
     echo "Błąd rejestracji użytkownika";
 }
 */
+if($user->login()) {
+    echo "Zalogowano poprawnie";
+} else {
+    echo "Błędny login lub hasło";
+}
+
+?>
