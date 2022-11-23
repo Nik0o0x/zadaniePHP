@@ -10,5 +10,13 @@ class User {
     public function __construct(string $login, string $password) {
         $this->login = $login;
         $this->password = $password;
-    }
-    ?>
+    
+    public function register() : bool {
+        $passwordHash = password_hash($this->password, PASSWORD_ARGON2I);
+        $query = "INSERT INTO user VALUES (NULL, ?, ?, ?, ?)";
+        $preparedQuery = $this->db->prepare($query); 
+        $preparedQuery->bind_param('ssss', $this->login, $passwordHash, 
+                                            $this->firstName, $this->lastName);
+        $result = $preparedQuery->execute();
+        return $result;
+        }
