@@ -36,3 +36,14 @@ class User {
             $row = $result->fetch_assoc();
             $passwordHash = $row['password'];
             if(password_verify($this->password, $passwordHash)) {
+                $this->id = $row['id'];
+                $this->firstName = $row['firstName'];
+                $this->lastName = $row['lastName'];
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
