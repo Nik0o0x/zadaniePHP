@@ -25,3 +25,14 @@ class User {
         $result = $preparedQuery->execute();
         return $result;
         }
+
+    public function login() : bool {
+        $query = "SELECT * FROM user WHERE login = ? LIMIT 1";
+        $preparedQuery = $this->db->prepare($query); 
+        $preparedQuery->bind_param('s', $this->login);
+        $preparedQuery->execute();
+        $result = $preparedQuery->get_result();
+        if($result->num_rows == 1) {
+            $row = $result->fetch_assoc();
+            $passwordHash = $row['password'];
+            if(password_verify($this->password, $passwordHash)) {
